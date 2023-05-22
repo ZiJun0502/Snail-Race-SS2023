@@ -1,1 +1,2 @@
-# Snail-Race-SS2023
+# hello-world
+Hello world new project template.
