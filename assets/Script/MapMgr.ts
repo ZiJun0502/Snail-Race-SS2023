@@ -9,17 +9,9 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class MapMgr extends cc.Component {
-  @property(cc.TiledMap)
-  tileMap: cc.TiledMap = null;
   // LIFE-CYCLE CALLBACKS:
-  private objectlayer = null;
-  private objects;
-  onLoad() {
-    this.objectlayer = this.tileMap.getObjectGroup("objects");
-    this.objects = this.objectlayer._objects;
-    console.log(this.objects);
-    cc.director.getPhysicsManager().debugDrawFlags = 1;
-  }
+
+  onLoad() {}
 
   start() {}
 

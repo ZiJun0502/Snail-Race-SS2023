@@ -16,6 +16,7 @@ export default class GameMgr extends cc.Component {
 
     physic.enabled = true;
     physic.gravity = cc.v2(0, 0);
+    cc.director.getPhysicsManager().debugDrawFlags = 1;
   }
 
   start() {}
