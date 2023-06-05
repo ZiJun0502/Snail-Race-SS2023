@@ -37,63 +37,9 @@ export default class Snail extends cc.Component {
     private cycle: number = 0.15;
 
     onLoad () {
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+        // cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+        // cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
         this.anim = this.getComponent(cc.Animation);
-    }
-    onKeyDown(event)
-    {
-        switch(event.keyCode)
-        {
-            case cc.macro.KEY.left:
-                this.leftDown = true;
-                break;
-            case cc.macro.KEY.right:
-                this.rightDown = true;
-                break;
-            case cc.macro.KEY.up:
-                this.upDown = true;
-                break;
-            case cc.macro.KEY.down:
-                this.downDown = true;
-                break;
-            case cc.macro.KEY.shift:
-                this.sqzDown = true;
-        }
-    }
-
-    onKeyUp(event)
-    {
-        switch(event.keyCode)
-        {
-            case cc.macro.KEY.left:
-                this.leftDown = false;
-                if(this.rightDown)
-                {
-                }
-                break;
-            case cc.macro.KEY.right:
-                this.rightDown = false;
-                if(this.leftDown)
-                {
-                }
-                break;
-            case cc.macro.KEY.up:
-                this.upDown = false;
-                if(this.downDown)
-                {
-                }
-                break;
-            case cc.macro.KEY.down:
-                this.downDown = false;
-                if(this.upDown)
-                {
-                }
-                break;
-            case cc.macro.KEY.shift:
-                this.sqzDown = false;
-                this.release();
-        }
     }
     rotate() {
         const temp = this.targetRotation - 360;
@@ -145,7 +91,7 @@ export default class Snail extends cc.Component {
             this.sqzState = 0;
             const radian = (this.node.angle + 90) * Math.PI/180;
             this.node.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(this.curSpeed*Math.cos(radian), this.curSpeed * Math.sin(radian));
-            cc.log(this.getComponent(cc.RigidBody).linearVelocity.x, this.getComponent(cc.RigidBody).linearVelocity.y);
+            // cc.log(this.getComponent(cc.RigidBody).linearVelocity.x, this.getComponent(cc.RigidBody).linearVelocity.y);
         }
     }
     start () {}
@@ -174,6 +120,7 @@ export default class Snail extends cc.Component {
     }
 
     update (dt) {
+        //squeeze
         if(this.sqzDown && !this.isAnimationPlaying('release')){
             this.counter += dt;
         }
@@ -186,6 +133,7 @@ export default class Snail extends cc.Component {
                 this.getComponent(cc.Sprite).spriteFrame = this.sqz[this.sqzState];
             }
         }
+        //friction and change direction during the release
         if(this.getComponent(cc.RigidBody).linearVelocity.x || this.getComponent(cc.RigidBody).linearVelocity.y){
             const radian = (this.node.angle + 90) * Math.PI/180;
             
@@ -210,7 +158,7 @@ export default class Snail extends cc.Component {
             if(this.curSpeed < 1){
                 this.curSpeed = 0;
             }
-            cc.log(Vx, Vy);
+            // cc.log(Vx, Vy);
             this.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(Vx, Vy);
         }
         //rotation
@@ -226,5 +174,8 @@ export default class Snail extends cc.Component {
             return animationState && animationState.isPlaying;
         }
         return false;
+    }
+    onBeginContact(contact, selfCollider, otherCollider){
+        if(otherCollider.node.name === "wall"){}
     }
 }
