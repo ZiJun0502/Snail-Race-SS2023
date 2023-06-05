@@ -21,13 +21,18 @@ export default class Snail extends cc.Component {
     private sqzDown: boolean = false;
     private targetRotation: number = 0; 
     private rotationSpeed: number = 2.5; 
-    private isRotating: boolean = false; 
+    private moveDirection: number = 1; 
     private rotateDirection: number = 0; 
     private sqzLock: boolean = false; 
-    private anim: cc.Animation = null;
     private sqzSpeed: Array<number> = [100,120,140,170];
     private curSpeed: number = 0;
-    
+    private moveLock: boolean = false;
+    private stunDuration: number = 0.6;
+    private anim: cc.Animation = null;
+
+    @property(cc.ParticleSystem)
+    hitWallParticle: cc.ParticleSystem = null;
+
     private friction = 130;
     @property(cc.SpriteFrame)
     idle: cc.SpriteFrame = null;
@@ -79,7 +84,6 @@ export default class Snail extends cc.Component {
         // cc.log(this.node.angle);
         if(Math.abs(this.targetRotation - this.node.angle) < 3){
             this.node.angle = this.targetRotation;
-            this.isRotating = false;
             cc.log("finish");
         }
     }
@@ -120,40 +124,13 @@ export default class Snail extends cc.Component {
     }
 
     update (dt) {
-        //squeeze
-        if(this.sqzDown && !this.isAnimationPlaying('release')){
-            this.counter += dt;
-        }
-        if(this.counter > this.cycle){
-            if(this.sqzState == 4){
-
-            }else{
-                this.counter = 0;
-                this.sqzState += 1;
-                this.getComponent(cc.Sprite).spriteFrame = this.sqz[this.sqzState];
-            }
-        }
+        cc.log(this.moveLock);
         //friction and change direction during the release
         if(this.getComponent(cc.RigidBody).linearVelocity.x || this.getComponent(cc.RigidBody).linearVelocity.y){
             const radian = (this.node.angle + 90) * Math.PI/180;
             
-            let Vx = this.curSpeed*Math.cos(radian), Vy = this.curSpeed * Math.sin(radian);
-            // if(Vx > 0){
-            //     Vx -= this.friction * dt;
-            // }else{
-            //     Vx += this.friction * dt;
-            // }
-            // if(Vy > 0){
-            //     Vy -= this.friction * dt; 
-            // }else{
-            //     Vy += this.friction * dt; 
-            // }
-            // if(Math.abs(Vx) < 1){
-            //     Vx = 0;
-            // }
-            // if(Math.abs(Vy) < 1){
-            //     Vy = 0;
-            // }
+            let Vx = this.curSpeed * Math.cos(radian) * this.moveDirection, 
+                Vy = this.curSpeed * Math.sin(radian) * this.moveDirection;
             this.curSpeed -= this.friction * dt;
             if(this.curSpeed < 1){
                 this.curSpeed = 0;
@@ -161,11 +138,26 @@ export default class Snail extends cc.Component {
             // cc.log(Vx, Vy);
             this.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(Vx, Vy);
         }
-        //rotation
-        this.calTargetRotation();
-        // cc.log(this.targetRotation);
-        if(this.targetRotation != this.node.angle){
-            this.rotate();
+        if(!this.moveLock){
+            //squeeze
+            if(this.sqzDown && !this.isAnimationPlaying('release')){
+                this.counter += dt;
+            }
+            if(this.counter > this.cycle){
+                if(this.sqzState == 4){
+
+                }else{
+                    this.counter = 0;
+                    this.sqzState += 1;
+                    this.getComponent(cc.Sprite).spriteFrame = this.sqz[this.sqzState];
+                }
+            }
+            //rotation
+            this.calTargetRotation();
+            // cc.log(this.targetRotation);
+            if(this.targetRotation != this.node.angle){
+                this.rotate();
+            }
         }
     }
     isAnimationPlaying(animationName: string): boolean {
@@ -175,7 +167,27 @@ export default class Snail extends cc.Component {
         }
         return false;
     }
+    resetParticle(){
+        this.hitWallParticle.resetSystem();
+    }
     onBeginContact(contact, selfCollider, otherCollider){
-        if(otherCollider.node.name === "wall"){}
+        if(otherCollider.node.name === "wall"){
+            cc.log("hit!");
+            this.moveLock = true;
+            const radian = (this.node.angle + 90) * Math.PI/180;
+            this.curSpeed *= 0.7;
+            let Vx = this.curSpeed * Math.cos(radian), 
+                Vy = this.curSpeed * Math.sin(radian);
+            this.moveDirection = -1;
+            this.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(-Vx, -Vy);
+            this.scheduleOnce(function(){
+                this.moveLock = false;
+                this.moveDirection = 1;
+            }, this.stunDuration);
+            this.resetParticle();
+            this.scheduleOnce(function(){
+                this.hitWallParticle.stopSystem();
+            }, 0.4);
+        }
     }
 }
