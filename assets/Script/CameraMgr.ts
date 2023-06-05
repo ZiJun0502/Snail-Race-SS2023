@@ -78,7 +78,7 @@ export default class CameraTransposer extends cc.Component {
         this.maxY
       )
     );
-    console.log(targetPosition.x, targetPosition.y);
+    // console.log(targetPosition.x, targetPosition.y);
     if (
       targetPosition.x <= this.maxX / 2 &&
       targetPosition.y >= this.maxY / 2
