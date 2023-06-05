@@ -20,10 +20,12 @@ export default class Snail extends cc.Component {
     private downDown: boolean = false;
     private sqzDown: boolean = false;
     private targetRotation: number = 0; 
-    private rotationSpeed: number = 2.5; 
+    private rotationSpeed: number = 2; 
     private moveDirection: number = 1; 
     private rotateDirection: number = 0; 
     private sqzLock: boolean = false; 
+    private moveRotateInertia: number = 1.4; 
+    private moving: boolean = false; 
     private sqzSpeed: Array<number> = [100,120,140,170];
     private curSpeed: number = 0;
     private moveLock: boolean = false;
@@ -70,12 +72,18 @@ export default class Snail extends cc.Component {
         //     this.rotationSpeed 
         // }
         if(this.rotateDirection > 0){
-            this.node.angle += this.rotationSpeed;
+            if(this.moving)
+                this.node.angle += this.rotationSpeed/this.moveRotateInertia;
+            else
+                this.node.angle += this.rotationSpeed;
             if(this.node.angle > 360){
                 this.node.angle -= 360;
             }
         }else{
-            this.node.angle += this.rotationSpeed * -1;
+            if(this.moving)
+                this.node.angle -= this.rotationSpeed/this.moveRotateInertia;
+            else
+                this.node.angle -= this.rotationSpeed;
             if(this.node.angle < 0){
                 this.node.angle += 360;
             }
@@ -128,7 +136,7 @@ export default class Snail extends cc.Component {
         //friction and change direction during the release
         if(this.getComponent(cc.RigidBody).linearVelocity.x || this.getComponent(cc.RigidBody).linearVelocity.y){
             const radian = (this.node.angle + 90) * Math.PI/180;
-            
+            this.moving = true;
             let Vx = this.curSpeed * Math.cos(radian) * this.moveDirection, 
                 Vy = this.curSpeed * Math.sin(radian) * this.moveDirection;
             this.curSpeed -= this.friction * dt;
@@ -137,6 +145,8 @@ export default class Snail extends cc.Component {
             }
             // cc.log(Vx, Vy);
             this.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(Vx, Vy);
+        }else{
+            this.moving = false;
         }
         if(!this.moveLock){
             //squeeze
