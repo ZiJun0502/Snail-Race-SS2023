@@ -117,6 +117,18 @@ export default class CameraTransposer extends cc.Component {
       this
     );
   }
+  Win() {
+    this.camera.play("WinCamera");
+    this.camera.on(
+      "finished",
+      () => {
+        this.node.getComponent(cc.Camera).zoomRatio = 1;
+        this.node.setPosition(cc.v2(1400, 500));
+        cc.find("Canvas/GameMgr").getComponent("GameMgr").WinScene();
+      },
+      this
+    );
+  }
 }
 
 function clamp(x: number, a: number, b: number) {

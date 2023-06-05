@@ -8,20 +8,16 @@
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class GameMgr extends cc.Component {
+export default class WinFlag extends cc.Component {
   // LIFE-CYCLE CALLBACKS:
 
-  onLoad() {
-    let physic = cc.director.getPhysicsManager();
-
-    physic.enabled = true;
-    physic.gravity = cc.v2(0, 0);
-    cc.director.getPhysicsManager().debugDrawFlags = 1;
-  }
+  // onLoad () {}
 
   start() {}
-  WinScene() {
-    cc.director.loadScene("TestEndScene");
+
+  onBeginContact(contact, self, other) {
+    cc.find("Canvas/CameraMgr").getComponent("CameraMgr").Win();
+    this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
   }
   // update (dt) {}
 }
