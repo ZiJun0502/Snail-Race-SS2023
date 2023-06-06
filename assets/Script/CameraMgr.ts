@@ -38,6 +38,7 @@ export default class CameraTransposer extends cc.Component {
   onLoad() {
     this.camera = this.node.getComponent(cc.Animation);
     this.animState = null;
+    this.BeginAnim();
   }
 
   start() {}
@@ -128,6 +129,9 @@ export default class CameraTransposer extends cc.Component {
       },
       this
     );
+  }
+  BeginAnim() {
+    this.camera.play("BeginCamera");
   }
 }
 

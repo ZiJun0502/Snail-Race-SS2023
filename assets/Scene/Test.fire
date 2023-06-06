@@ -1139,7 +1139,7 @@
     },
     "_enabled": true,
     "_defaultClip": {
-      "__uuid__": "37dc6f58-13e2-4f1c-8b8d-c3e33a2296d3"
+      "__uuid__": "8b8cf1e5-c260-40f4-a361-f02f8935623e"
     },
     "_clips": [
       {
@@ -1150,6 +1150,9 @@
       },
       {
         "__uuid__": "0e095623-4a35-4187-8e4e-aef282d10804"
+      },
+      {
+        "__uuid__": "8b8cf1e5-c260-40f4-a361-f02f8935623e"
       }
     ],
     "playOnLoad": false,
