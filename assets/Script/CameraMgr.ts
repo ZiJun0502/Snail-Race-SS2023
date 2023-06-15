@@ -128,7 +128,7 @@ export default class CameraTransposer extends cc.Component {
       () => {
         this.node.getComponent(cc.Camera).zoomRatio = 1;
         this.node.setPosition(cc.v2(1400, 500));
-        cc.find("Canvas/GameMgr").getComponent("GameMgr").WinScene();
+        cc.find("GameMgr").getComponent("GameMgr").WinScene();
       },
       this
     );
