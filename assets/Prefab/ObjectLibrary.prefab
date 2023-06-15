@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "CameraMgr",
+    "_name": "ObjectLibrary",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -24,13 +24,10 @@
       },
       {
         "__id__": 3
-      },
-      {
-        "__id__": 4
       }
     ],
     "_prefab": {
-      "__id__": 5
+      "__id__": 4
     },
     "_opacity": 255,
     "_color": {
@@ -42,8 +39,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 960,
-      "height": 640
+      "width": 200,
+      "height": 150
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -54,8 +51,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        6.269,
-        36.946,
+        0,
+        0,
         0,
         0,
         0,
@@ -80,84 +77,67 @@
     "_id": ""
   },
   {
-    "__type__": "cc.Camera",
+    "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "_cullingMask": 4294967295,
-    "_clearFlags": 7,
-    "_backgroundColor": {
-      "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
-      "a": 255
-    },
-    "_depth": -1,
-    "_zoomRatio": 1.6,
-    "_targetTexture": null,
-    "_fov": 60,
-    "_orthoSize": 10,
-    "_nearClip": 1,
-    "_farClip": 4096,
-    "_ortho": true,
-    "_rect": {
-      "__type__": "cc.Rect",
-      "x": 0,
-      "y": 0,
-      "width": 1,
-      "height": 1
-    },
-    "_renderStages": 1,
-    "_alignWithScreen": true,
-    "_id": ""
-  },
-  {
-    "__type__": "a5eaajxTd1GHaFhc9r3v9pD",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "followTarget": null,
-    "followX": true,
-    "followY": true,
-    "minX": 0,
-    "minY": 0,
-    "maxX": 300,
-    "maxY": 800,
-    "_id": ""
-  },
-  {
-    "__type__": "cc.Animation",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "_defaultClip": {
-      "__uuid__": "8b8cf1e5-c260-40f4-a361-f02f8935623e"
-    },
-    "_clips": [
+    "_materials": [
       {
-        "__uuid__": "37dc6f58-13e2-4f1c-8b8d-c3e33a2296d3"
-      },
-      {
-        "__uuid__": "98bf5967-6e39-4b96-90e7-55f792a66a58"
-      },
-      {
-        "__uuid__": "0e095623-4a35-4187-8e4e-aef282d10804"
-      },
-      {
-        "__uuid__": "8b8cf1e5-c260-40f4-a361-f02f8935623e"
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
-    "playOnLoad": false,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_spriteFrame": {
+      "__uuid__": "9bbda31e-ad49-43c9-aaf2-f7d9896bac69"
+    },
+    "_type": 1,
+    "_sizeMode": 0,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_atlas": null,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.Layout",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_layoutSize": {
+      "__type__": "cc.Size",
+      "width": 200,
+      "height": 150
+    },
+    "_resize": 0,
+    "_N$layoutType": 0,
+    "_N$cellSize": {
+      "__type__": "cc.Size",
+      "width": 40,
+      "height": 40
+    },
+    "_N$startAxis": 0,
+    "_N$paddingLeft": 0,
+    "_N$paddingRight": 0,
+    "_N$paddingTop": 0,
+    "_N$paddingBottom": 0,
+    "_N$spacingX": 0,
+    "_N$spacingY": 0,
+    "_N$verticalDirection": 1,
+    "_N$horizontalDirection": 0,
+    "_N$affectedByScale": false,
     "_id": ""
   },
   {

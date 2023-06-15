@@ -1,0 +1,68 @@
+// Learn TypeScript:
+//  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
+// Learn Attribute:
+//  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
+// Learn life-cycle callbacks:
+//  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
+
+const { ccclass, property } = cc._decorator;
+
+@ccclass
+export default class Draggable extends cc.Component {
+  // LIFE-CYCLE CALLBACKS:
+  private isDragging = false;
+  private rotating = false;
+  onLoad() {
+    this.node.on(cc.Node.EventType.MOUSE_DOWN, this.onMouseDown, this);
+    this.node.on(cc.Node.EventType.MOUSE_MOVE, this.onMouseMove, this);
+    this.node.on(cc.Node.EventType.MOUSE_UP, this.onMouseUp, this);
+    this.node.on(cc.Node.EventType.MOUSE_LEAVE, this.onMouseUp, this);
+  }
+  private prePos;
+
+  private onMouseDown(event) {
+    if (event.getButton() === cc.Event.EventMouse.BUTTON_RIGHT) {
+      this.rotating = true;
+    } else if (event.getButton() === cc.Event.EventMouse.BUTTON_MIDDLE) {
+      this.node.destroy();
+    } else {
+      if (this.isDragging == true) return;
+      this.isDragging = true;
+
+      // make the node large
+      this.node.width *= 1.5;
+      this.node.height *= 1.5;
+      this.prePos = event.getLocation();
+    }
+  }
+
+  private onMouseMove(event) {
+    if (this.isDragging == false) return;
+    let cur = event.getLocation();
+
+    let newPos = this.node.position.add(cur.sub(this.prePos));
+
+    this.prePos = cur;
+    this.node.setPosition(newPos);
+  }
+
+  private onMouseUp(event) {
+    if (event.getButton() === cc.Event.EventMouse.BUTTON_RIGHT) {
+      this.rotating = false;
+    }
+    if (this.isDragging == false) return;
+    this.isDragging = false;
+
+    // return to its original size
+    this.node.width /= 1.5;
+    this.node.height /= 1.5;
+  }
+
+  start() {}
+
+  update(dt) {
+    if (this.rotating == true) {
+      this.node.rotation += 1;
+    }
+  }
+}

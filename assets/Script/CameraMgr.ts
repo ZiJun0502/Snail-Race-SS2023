@@ -35,15 +35,18 @@ export default class CameraTransposer extends cc.Component {
 
   private camera;
   private animState;
+  // check whether to follow the target node
+  private follow = true;
   onLoad() {
     this.camera = this.node.getComponent(cc.Animation);
     this.animState = null;
-    this.BeginAnim();
+    //this.BeginAnim();
   }
 
   start() {}
 
   update(dt) {
+    if (this.follow == false) return;
     // Not using convertToWorldSpaceAR + convertToNodeSpaceAR because
     // they are inaccurate and causes camera jitter. :(
     let cameraLocalTransform = cc.mat4();
@@ -130,8 +133,21 @@ export default class CameraTransposer extends cc.Component {
       this
     );
   }
+  // tour the scene
   BeginAnim() {
-    this.camera.play("BeginCamera");
+    //this.camera.play("BeginCamera");
+    var animation = cc.sequence(
+      cc.moveBy(5, 0, 800),
+      cc.moveBy(2, 250, 0),
+      cc.moveBy(5, 0, -800),
+      cc.moveBy(2, -250, 0)
+    );
+    this.follow = false;
+    this.node.runAction(animation);
+    setTimeout(() => {
+      this.node.stopAction(animation);
+      this.follow = true;
+    }, 15000);
   }
 }
 
