@@ -40,7 +40,10 @@ export default class CameraTransposer extends cc.Component {
   onLoad() {
     this.camera = this.node.getComponent(cc.Animation);
     this.animState = null;
-    //this.BeginAnim();
+    cc.find("Canvas").getComponent("GameManager").stopGame = true;
+    setTimeout(() => {
+      this.BeginAnim();
+    }, 500);
   }
 
   start() {}
@@ -128,7 +131,7 @@ export default class CameraTransposer extends cc.Component {
       () => {
         this.node.getComponent(cc.Camera).zoomRatio = 1;
         this.node.setPosition(cc.v2(1400, 500));
-        cc.find("GameMgr").getComponent("GameMgr").WinScene();
+        cc.find("Canvas").getComponent("GameManager").Finish();
       },
       this
     );
@@ -147,6 +150,7 @@ export default class CameraTransposer extends cc.Component {
     setTimeout(() => {
       this.node.stopAction(animation);
       this.follow = true;
+      cc.find("Canvas").getComponent("GameManager").stopGame = false;
     }, 15000);
   }
 }

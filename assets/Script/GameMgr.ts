@@ -14,6 +14,8 @@ export default class GameMgr extends cc.Component {
   // some global data
   public Volume = 5;
   public mute = false;
+  public P1Time: number = 0;
+  public P2Time: number = 0;
 
   // some private data
   private SettingVolume = null;
@@ -34,19 +36,7 @@ export default class GameMgr extends cc.Component {
   }
 
   start() {}
-  // load scene
-  WinScene() {
-    cc.director.loadScene("TestEndScene");
-  }
-  Local2p() {
-    cc.director.loadScene("Test");
-  }
-  MapEditor() {
-    cc.director.loadScene("MapEditor");
-  }
-  SignIn() {}
-  SignOut() {}
-  // Volume
+  // Volume control
   IncreaseVolume() {
     if (this.Volume >= 10) return;
     this.Volume += 1;
@@ -71,6 +61,14 @@ export default class GameMgr extends cc.Component {
       return;
     }
     this.SettingVolume.string = this.Volume.toString();
+  }
+
+  // time for players
+  SetP1time(time: number) {
+    this.P1Time = time;
+  }
+  SetP2time(time: number) {
+    this.P2Time = time;
   }
 
   update(dt) {

@@ -35,11 +35,13 @@ export default class MapEditor extends cc.Component {
         this.cameraMgr.getComponent("CameraMgr").zoomIn();
         this.node.getChildByName("ObjectLibrary").active = false;
         this.node.getChildByName("Cross").active = false;
+        cc.find("Canvas").getComponent("GameManager").stopTimer = false;
       } else {
         this.editing = true;
         this.cameraMgr.getComponent("CameraMgr").zoomOut();
         this.node.getChildByName("ObjectLibrary").active = true;
         this.node.getChildByName("Cross").active = true;
+        cc.find("Canvas").getComponent("GameManager").stopTimer = true;
       }
       this.keyState.esc = true;
     }
@@ -74,7 +76,11 @@ export default class MapEditor extends cc.Component {
   start() {}
 
   update(dt) {
-    this.cameraMgr.getComponent("CameraMgr").follow = !this.editing;
-    this.node.setPosition(this.cameraMgr.position);
+    // if the game timer is stop
+    if (cc.find("Canvas").getComponent("GameManager").stopGame === true) return;
+    else {
+      this.cameraMgr.getComponent("CameraMgr").follow = !this.editing;
+      this.node.setPosition(this.cameraMgr.position);
+    }
   }
 }
