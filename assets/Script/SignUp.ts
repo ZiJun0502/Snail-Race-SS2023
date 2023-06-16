@@ -11,7 +11,10 @@ const { ccclass, property } = cc._decorator;
 export default class NewClass extends cc.Component {
   // LIFE-CYCLE CALLBACKS:
 
-  // onLoad () {}
+  onLoad() {
+    cc.director.preloadScene("ModeSelect");
+    cc.director.preloadScene("SignIn");
+  }
 
   start() {}
   SignUp() {

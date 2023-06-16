@@ -17,21 +17,21 @@ export default class NewClass extends cc.Component {
   }
   Local2p() {
     cc.find("TransitionNode").getComponent("SceneTransition").Loading();
-    setTimeout(() => {
-      cc.director.loadScene("Local2p");
-    }, 500);
+    //setTimeout(() => {
+    cc.director.loadScene("Local2p");
+    //}, 500);
   }
   MapEditor() {
     cc.find("TransitionNode").getComponent("SceneTransition").Loading();
-    setTimeout(() => {
-      cc.director.loadScene("MapEditor");
-    }, 500);
+    //setTimeout(() => {
+    cc.director.loadScene("MapEditor");
+    //}, 500);
   }
   LogOut() {
     cc.find("TransitionNode").getComponent("SceneTransition").Loading();
-    setTimeout(() => {
-      cc.director.loadScene("MapEditor");
-    }, 500);
+    //setTimeout(() => {
+    cc.director.loadScene("MapEditor");
+    //}, 500);
   }
   start() {}
 
