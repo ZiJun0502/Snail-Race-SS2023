@@ -14,8 +14,12 @@ export default class GameMgr extends cc.Component {
   // some global data
   public Volume = 5;
   public mute = false;
-  public P1Time: number = 0;
-  public P2Time: number = 0;
+  public P1Time: number = 999;
+  public P2Time: number = 999;
+  public P1Name: string = "";
+  public P2Name: string = "";
+  public P1Uid: string = "";
+  public P2Uid: string = "";
 
   // some private data
   private SettingVolume = null;
@@ -61,6 +65,10 @@ export default class GameMgr extends cc.Component {
       return;
     }
     this.SettingVolume.string = this.Volume.toString();
+  }
+  getVolume() {
+    if (this.mute) return 0;
+    return this.Volume;
   }
 
   // time for players
