@@ -8,17 +8,23 @@
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class WinFlag extends cc.Component {
+export default class WinScene extends cc.Component {
   // LIFE-CYCLE CALLBACKS:
 
-  // onLoad () {}
+  onLoad() {
+    cc.game.addPersistRootNode(this.node);
+  }
 
   start() {}
 
-  onBeginContact(contact, self, other) {
-    cc.find("Canvas/CameraMgr").getComponent("CameraMgr").Win();
-    cc.find("Canvas").getComponent("GameManager").WhoWin(other.node.name);
-    this.node.getComponent(cc.PhysicsBoxCollider).enabled = false;
+  Win() {
+    cc.tween(this.node)
+      .to(1, { position: cc.v3(480, 320, 0) }, { easing: "cubicInOut" })
+      .to(1, { position: cc.v3(480, -360, 0) }, { easing: "cubicInOut" })
+      .call(() => {
+        this.node.setPosition(cc.v3(480, 1000, 0));
+      })
+      .start();
   }
   // update (dt) {}
 }

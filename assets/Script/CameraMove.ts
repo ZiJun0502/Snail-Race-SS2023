@@ -65,6 +65,7 @@ export default class CameraMove extends cc.Component {
   start() {}
 
   update(dt) {
+    if (cc.find("Canvas").getComponent("GameManager").stopGame === true) return;
     if (
       this.keyState.up ||
       this.keyState.down ||
