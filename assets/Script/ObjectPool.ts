@@ -116,7 +116,18 @@ export default class ObjectPool extends cc.Component {
     if (!node) return;
     this.objectpool4.put(node);
   }
-
+  recovery(node: cc.Node) {
+    if (!node) return;
+    if (node.name === this.ObjectPrefab1.name) {
+      this.recovery1(node);
+    } else if (node.name === this.ObjectPrefab2.name) {
+      this.recovery2(node);
+    } else if (node.name === this.ObjectPrefab3.name) {
+      this.recovery3(node);
+    } else if (node.name === this.ObjectPrefab4.name) {
+      this.recovery4(node);
+    }
+  }
   start() {}
 
   // update (dt) {}
