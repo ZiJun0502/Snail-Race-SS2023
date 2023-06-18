@@ -790,7 +790,7 @@
       "__type__": "cc.Color",
       "r": 191,
       "g": 63,
-      "b": 28,
+      "b": 25,
       "a": 255
     },
     "_startColorVar": {
@@ -814,7 +814,7 @@
       "b": 0,
       "a": 0
     },
-    "angle": 90,
+    "angle": -57,
     "angleVar": 10,
     "startSize": 54,
     "startSizeVar": 10,
@@ -831,8 +831,8 @@
     },
     "posVar": {
       "__type__": "cc.Vec2",
-      "x": 40,
-      "y": 20
+      "x": 32,
+      "y": 16
     },
     "_positionType": 1,
     "positionType": 1,
@@ -842,7 +842,7 @@
       "x": 0,
       "y": 0
     },
-    "speed": 60,
+    "speed": 0,
     "speedVar": 20,
     "tangentialAccel": 0,
     "tangentialAccelVar": 0,
@@ -1355,7 +1355,7 @@
     "_is3DNode": false,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "_id": "50GNmoHkROBqvl2+X+mDVG"
+    "_id": "236G2AoNNPuaMOOdlWU6SS"
   },
   {
     "__type__": "cc.ParticleSystem",
@@ -1378,7 +1378,7 @@
     },
     "_spriteFrame": null,
     "_texture": null,
-    "_stopped": true,
+    "_stopped": false,
     "playOnLoad": false,
     "autoRemoveOnFinish": false,
     "totalParticles": 300,
@@ -1390,7 +1390,7 @@
       "__type__": "cc.Color",
       "r": 191,
       "g": 63,
-      "b": 28,
+      "b": 25,
       "a": 255
     },
     "_startColorVar": {
@@ -1414,7 +1414,7 @@
       "b": 0,
       "a": 0
     },
-    "angle": 90,
+    "angle": -57,
     "angleVar": 10,
     "startSize": 54,
     "startSizeVar": 10,
@@ -1431,8 +1431,8 @@
     },
     "posVar": {
       "__type__": "cc.Vec2",
-      "x": 40,
-      "y": 20
+      "x": 32,
+      "y": 16
     },
     "_positionType": 1,
     "positionType": 1,
@@ -1442,7 +1442,7 @@
       "x": 0,
       "y": 0
     },
-    "speed": 60,
+    "speed": 0,
     "speedVar": 20,
     "tangentialAccel": 0,
     "tangentialAccelVar": 0,
@@ -1456,7 +1456,7 @@
     "rotatePerS": 0,
     "rotatePerSVar": 0,
     "_N$preview": true,
-    "_id": "c7iJ8Jh6VNc7koVl/7qgl8"
+    "_id": "89bb0xnDNIN5sqyQawbGcG"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1466,7 +1466,7 @@
     "asset": {
       "__uuid__": "18106712-9600-464f-bc8e-5223bcf20975"
     },
-    "fileId": "efeGKt/2xLPKAZQIkoW1G6",
+    "fileId": "8a7GkuZ3hL6aCg+yKcav8/",
     "sync": false
   },
   {

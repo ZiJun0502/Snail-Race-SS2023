@@ -714,7 +714,7 @@
     "_is3DNode": false,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "_id": "60okA6ep1ISb1+r5khtxZ6"
+    "_id": "51Q9IDFe1FsLFXO2P4XZ7r"
   },
   {
     "__type__": "cc.ParticleSystem",
@@ -749,7 +749,7 @@
       "__type__": "cc.Color",
       "r": 191,
       "g": 63,
-      "b": 28,
+      "b": 25,
       "a": 255
     },
     "_startColorVar": {
@@ -773,7 +773,7 @@
       "b": 0,
       "a": 0
     },
-    "angle": 90,
+    "angle": -57,
     "angleVar": 10,
     "startSize": 54,
     "startSizeVar": 10,
@@ -790,8 +790,8 @@
     },
     "posVar": {
       "__type__": "cc.Vec2",
-      "x": 40,
-      "y": 20
+      "x": 32,
+      "y": 16
     },
     "_positionType": 1,
     "positionType": 1,
@@ -801,7 +801,7 @@
       "x": 0,
       "y": 0
     },
-    "speed": 60,
+    "speed": 0,
     "speedVar": 20,
     "tangentialAccel": 0,
     "tangentialAccelVar": 0,
@@ -815,7 +815,7 @@
     "rotatePerS": 0,
     "rotatePerSVar": 0,
     "_N$preview": true,
-    "_id": "548hs8TplNZJbB3+scDZO2"
+    "_id": "ac7M0ZfYFE0ZtX8Zf4EM0K"
   },
   {
     "__type__": "cc.Sprite",
@@ -1275,7 +1275,7 @@
     "_is3DNode": false,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "_id": "00Nhj9weNCW6BQSLtz6Ss3"
+    "_id": "f9yZbXG4FK2aLcPxO9U5vL"
   },
   {
     "__type__": "cc.ParticleSystem",
@@ -1310,7 +1310,7 @@
       "__type__": "cc.Color",
       "r": 191,
       "g": 63,
-      "b": 28,
+      "b": 25,
       "a": 255
     },
     "_startColorVar": {
@@ -1334,7 +1334,7 @@
       "b": 0,
       "a": 0
     },
-    "angle": 90,
+    "angle": -57,
     "angleVar": 10,
     "startSize": 54,
     "startSizeVar": 10,
@@ -1351,8 +1351,8 @@
     },
     "posVar": {
       "__type__": "cc.Vec2",
-      "x": 40,
-      "y": 20
+      "x": 32,
+      "y": 16
     },
     "_positionType": 1,
     "positionType": 1,
@@ -1362,7 +1362,7 @@
       "x": 0,
       "y": 0
     },
-    "speed": 60,
+    "speed": 0,
     "speedVar": 20,
     "tangentialAccel": 0,
     "tangentialAccelVar": 0,
@@ -1376,7 +1376,7 @@
     "rotatePerS": 0,
     "rotatePerSVar": 0,
     "_N$preview": true,
-    "_id": "9b+GXSJgBML5NO8fR3vLRA"
+    "_id": "5dsFV5bzJElYWLzMhXFh6e"
   },
   {
     "__type__": "cc.Sprite",
