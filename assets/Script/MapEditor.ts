@@ -15,7 +15,8 @@ export default class MapEditor extends cc.Component {
   cameraMgr: cc.Node = null;
   @property(cc.Node)
   ObjectLibrary: cc.Node = null;
-
+  @property(cc.ParticleSystem)
+  creatingParticle: cc.ParticleSystem = null;
   private keyState = {
     esc: false,
   };
@@ -60,31 +61,37 @@ export default class MapEditor extends cc.Component {
     this.node
       .getComponent("ObjectPool")
       .createObj1(this.node.position.add(cc.v3(490, 340, 0)));
+    this.creatingParticle.resetSystem();
   }
   placeobject2() {
     this.node
       .getComponent("ObjectPool")
       .createObj2(this.node.position.add(cc.v3(490, 340, 0)));
+    this.creatingParticle.resetSystem();
   }
   placeobject3() {
     this.node
       .getComponent("ObjectPool")
       .createObj3(this.node.position.add(cc.v3(490, 340, 0)));
+    this.creatingParticle.resetSystem();
   }
   placeobject4() {
     this.node
       .getComponent("ObjectPool")
       .createObj4(this.node.position.add(cc.v3(490, 340, 0)));
+    this.creatingParticle.resetSystem();
   }
   placeobject5() {
     this.node
       .getComponent("ObjectPool")
       .createObj5(this.node.position.add(cc.v3(490, 340, 0)));
+    this.creatingParticle.resetSystem();
   }
   placeobject6() {
     this.node
       .getComponent("ObjectPool")
       .createObj6(this.node.position.add(cc.v3(490, 340, 0)));
+    this.creatingParticle.resetSystem();
   }
 
   start() {}
