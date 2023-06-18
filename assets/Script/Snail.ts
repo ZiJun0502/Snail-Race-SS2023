@@ -32,6 +32,8 @@ export default class Snail extends cc.Component {
 
   @property(cc.ParticleSystem)
   hitWallParticle: cc.ParticleSystem = null;
+  @property(cc.ParticleSystem)
+  fireParticle: cc.ParticleSystem = null;
 
   private friction = 130;
   @property(cc.SpriteFrame)
@@ -200,5 +202,8 @@ export default class Snail extends cc.Component {
         this.hitWallParticle.stopSystem();
       }, 0.4);
     }
+  }
+  fire() {
+    this.fireParticle.resetSystem();
   }
 }
