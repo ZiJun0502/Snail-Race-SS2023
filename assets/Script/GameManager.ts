@@ -23,9 +23,17 @@ export default class GameManager extends cc.Component {
 
   WhoWin(player: string) {
     if (player == "Snail1") {
-      cc.find("GameMgr").getComponent("GameMgr").SetP1time(this.time.toFixed());
+      if (this.time < cc.find("GameMgr").getComponent("GameMgr").P1Time) {
+        cc.find("GameMgr")
+          .getComponent("GameMgr")
+          .SetP1time(this.time.toFixed().toString());
+      }
     } else if (player == "Snail2") {
-      cc.find("GameMgr").getComponent("GameMgr").SetP2time(this.time.toFixed());
+      if (this.time < cc.find("GameMgr").getComponent("GameMgr").P2Time) {
+        cc.find("GameMgr")
+          .getComponent("GameMgr")
+          .SetP2time(this.time.toFixed().toString());
+      }
     }
   }
 

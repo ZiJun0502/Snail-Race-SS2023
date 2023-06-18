@@ -24,7 +24,11 @@ export default class Draggable extends cc.Component {
     if (event.getButton() === cc.Event.EventMouse.BUTTON_RIGHT) {
       this.rotating = true;
     } else if (event.getButton() === cc.Event.EventMouse.BUTTON_MIDDLE) {
-      this.node.destroy();
+      //this.node.destroy();
+
+      cc.find("Canvas/MapEditor")
+        .getComponent("ObjectPool")
+        .recovery(this.node);
     } else {
       if (this.isDragging == true) return;
       this.isDragging = true;
