@@ -11,6 +11,9 @@ const { ccclass, property } = cc._decorator;
 export default class WinScene extends cc.Component {
   // LIFE-CYCLE CALLBACKS:
 
+  @property(cc.AudioClip)
+  winAudio: cc.AudioClip = null;
+
   onLoad() {
     cc.game.addPersistRootNode(this.node);
   }
@@ -19,6 +22,13 @@ export default class WinScene extends cc.Component {
 
   Win() {
     cc.tween(this.node)
+      .call(() => {
+        cc.audioEngine.play(
+          this.winAudio,
+          false,
+          cc.find("GameMgr").getComponent("GameMgr").getVolume()
+        );
+      })
       .to(1, { position: cc.v3(480, 320, 0) }, { easing: "cubicInOut" })
       .to(1, { position: cc.v3(480, -360, 0) }, { easing: "cubicInOut" })
       .call(() => {

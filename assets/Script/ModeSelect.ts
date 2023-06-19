@@ -27,12 +27,6 @@ export default class NewClass extends cc.Component {
     cc.director.loadScene("MapEditor");
     //}, 500);
   }
-  LogOut() {
-    cc.find("TransitionNode").getComponent("SceneTransition").Loading();
-    //setTimeout(() => {
-    cc.director.loadScene("MapEditor");
-    //}, 500);
-  }
   start() {}
 
   // update (dt) {}

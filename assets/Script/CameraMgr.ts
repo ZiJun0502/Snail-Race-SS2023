@@ -14,6 +14,11 @@ const { ccclass, property } = cc._decorator;
 export default class CameraTransposer extends cc.Component {
   @property(cc.Node)
   followTarget: cc.Node = null;
+  @property(cc.Node)
+  p1: cc.Node = null;
+  @property(cc.Node)
+  p2: cc.Node = null;
+
   @property(cc.Boolean)
   followX: boolean = true;
   @property(cc.Boolean)
@@ -37,6 +42,7 @@ export default class CameraTransposer extends cc.Component {
   private animState;
   // check whether to follow the target node
   private follow = true;
+  private zooming = false;
   onLoad() {
     this.camera = this.node.getComponent(cc.Animation);
     this.animState = null;
@@ -86,7 +92,7 @@ export default class CameraTransposer extends cc.Component {
       )
     );
     // console.log(targetPosition.x, targetPosition.y);
-    if (
+    /* if (
       targetPosition.x <= this.maxX / 2 &&
       targetPosition.y >= this.maxY / 2
     ) {
@@ -97,11 +103,56 @@ export default class CameraTransposer extends cc.Component {
       targetPosition.y <= this.maxY / 2
     ) {
       this.zoomIn();
-    }
+    } */
+    let p1BoundingBox = this.p1.getBoundingBoxToWorld();
+    let p2BoundingBox = this.p2.getBoundingBoxToWorld();
+    let totalBoundingBox = cc.rect();
+    totalBoundingBox = p1BoundingBox.union(totalBoundingBox, p2BoundingBox);
+    //console.log(totalBoundingBox);
+    /* 
+    let maxSideOfBox = Math.max(
+      totalBoundingBox.width,
+      totalBoundingBox.height
+    );
+    maxSideOfBox = clamp(maxSideOfBox, 200, 600);
+    maxSideOfBox.toFixed();
 
+    var curZoomRatio = -0.002 * maxSideOfBox + 2.3;
+    this.node.getComponent(cc.Camera).zoomRatio = curZoomRatio; */
+
+    let maxSideOfBox = Math.max(
+      totalBoundingBox.width,
+      totalBoundingBox.height
+    );
+
+    if (maxSideOfBox < 100) {
+      this.zoomTo(1.8);
+    } else if (maxSideOfBox >= 100 && maxSideOfBox < 150) {
+      this.zoomTo(1.6);
+    } else if (maxSideOfBox >= 150 && maxSideOfBox < 200) {
+      this.zoomTo(1.4);
+    } else if (maxSideOfBox >= 200 && maxSideOfBox < 250) {
+      this.zoomTo(1.2);
+    } else if (maxSideOfBox >= 250 && maxSideOfBox < 300) {
+      this.zoomTo(1);
+    } else if (maxSideOfBox >= 350 && maxSideOfBox < 400) {
+      this.zoomTo(0.8);
+    }
     this.node.position = targetPosition;
   }
-  private zoomOut() {
+
+  private zoomTo(z: number) {
+    if (this.zooming == true) return;
+    this.zooming = true;
+
+    cc.tween(this.node.getComponent(cc.Camera))
+      .to(1, { zoomRatio: z }, { easing: "quartInOut" })
+      .call(() => {
+        this.zooming = false;
+      })
+      .start();
+  }
+  /* private zoomOut() {
     if (this.animState !== null && this.animState.name == "zoomOut") return;
     this.animState = this.camera.play("zoomOut");
 
@@ -112,8 +163,13 @@ export default class CameraTransposer extends cc.Component {
       },
       this
     );
+  } */
+  private zoomOut() {
+    cc.tween(this.node.getComponent(cc.Camera))
+      .to(1, { zoomRatio: 1 }, { easing: "quartInOut" })
+      .start();
   }
-  private zoomIn() {
+  /* private zoomIn() {
     if (this.animState !== null && this.animState.name == "zoomIn") return;
     this.animState = this.camera.play("zoomIn");
     this.camera.on(
@@ -123,6 +179,11 @@ export default class CameraTransposer extends cc.Component {
       },
       this
     );
+  } */
+  private zoomIn() {
+    cc.tween(this.node.getComponent(cc.Camera))
+      .to(1, { zoomRatio: 1.6 }, { easing: "quartInOut" })
+      .start();
   }
   Win() {
     this.camera.play("WinCamera");
@@ -150,8 +211,13 @@ export default class CameraTransposer extends cc.Component {
     setTimeout(() => {
       this.node.stopAction(animation);
       this.follow = true;
-      cc.find("Canvas").getComponent("GameManager").stopGame = false;
+
+      cc.find("StartNode").getComponent("StartScene").StartScene();
     }, 15000);
+
+    setTimeout(() => {
+      cc.find("Canvas").getComponent("GameManager").stopGame = false;
+    }, 21000);
   }
 }
 

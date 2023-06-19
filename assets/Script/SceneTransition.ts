@@ -11,12 +11,22 @@ const { ccclass, property } = cc._decorator;
 export default class SceneTransition extends cc.Component {
   // LIFE-CYCLE CALLBACKS:
 
+  @property(cc.AudioClip)
+  flipAudio: cc.AudioClip = null;
+
   onLoad() {
     cc.game.addPersistRootNode(this.node);
   }
 
   Loading() {
     cc.tween(this.node)
+      .call(() => {
+        cc.audioEngine.play(
+          this.flipAudio,
+          false,
+          cc.find("GameMgr").getComponent("GameMgr").getVolume()
+        );
+      })
       .to(1, { position: cc.v3(480, 320, 0) }, { easing: "cubicInOut" })
       .to(1, { position: cc.v3(1440, 320, 0) }, { easing: "cubicInOut" })
       .call(() => {

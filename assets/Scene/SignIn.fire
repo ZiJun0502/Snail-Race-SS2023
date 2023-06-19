@@ -433,7 +433,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Email",
+    "_name": "P2Email",
     "_objFlags": 0,
     "_parent": {
       "__id__": 5
@@ -919,7 +919,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Password",
+    "_name": "P2Password",
     "_objFlags": 0,
     "_parent": {
       "__id__": 5
@@ -1806,7 +1806,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Ok",
+    "_name": "P1Ok",
     "_objFlags": 0,
     "_parent": {
       "__id__": 5
@@ -2106,7 +2106,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Email",
+    "_name": "P1Email",
     "_objFlags": 0,
     "_parent": {
       "__id__": 5
@@ -2592,7 +2592,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Password",
+    "_name": "P1Password",
     "_objFlags": 0,
     "_parent": {
       "__id__": 5
