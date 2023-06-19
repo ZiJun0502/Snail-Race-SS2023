@@ -22,17 +22,10 @@ export default class Rat extends cc.Component {
     private _minGraphEdgeLength = Infinity;
     private currentWaypoint: Waypoint = null;
     private nextWaypoint: Waypoint = null;
+    private runTowards: cc.Node = null;
     @property(WaypointGraph)
     waypointGraph: WaypointGraph = null;
-    @property(cc.Node)
-    runTowards: cc.Node = null;
 
-    // private _navChaser: NavChaser = null;
-    // protected agentUpdate(dt: number): void {
-    //     this._navChaser.update(dt);
-    // }
-    // @property(cc.Node)
-    // runTowards: cc.Node = null;
     @property(cc.Node)
     p1: cc.Node = null;
     @property(cc.Node)
@@ -73,18 +66,9 @@ export default class Rat extends cc.Component {
                 this._minGraphEdgeLength = Math.min(this._minGraphEdgeLength, dist);
             }
         }
-        cc.log(this._minGraphEdgeLength);
+        // cc.log(this._minGraphEdgeLength);
     }
-    protected onTransitionFinish(): void {
-        //*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*\\
-        // TODO (4.2): Complete NavChaser's onTransitionFinish method.
-        // [SPECIFICATIONS]
-        // - NavChaser should move towards the waypoint on the waypoint graph 
-        //   closest to this._runTowards.
-        // - Assign your results to this._nextWaypoint.
-        //*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*\\
-       
-        //#region [YOUR IMPLEMENTATION HERE]
+    updateRoute(): void {
         let minDist = this.waypointGraph.adjacencyList[0].distanceToNode(this.runTowards);
         let closetWaypointToRuntowards = this.waypointGraph.adjacencyList[0];
       
@@ -102,8 +86,6 @@ export default class Rat extends cc.Component {
         this.nextWaypoint = this.waypointGraph.shortestPathMatrix.get(
             this.currentWaypoint.uuid + closetWaypointToRuntowards.uuid
         );
-        //#endregion
-        // console.log(`NavChaser: Current: ${this.currentWaypoint.node.name}, Next: ${this.nextWaypoint.node.name}`);
     }
     update (dt) {
         let currentTime = cc.director.getTotalTime() / 1000.0;
@@ -124,6 +106,7 @@ export default class Rat extends cc.Component {
                 // cc.log(this.getComponent(cc.RigidBody).linearVelocity.x, this.getComponent(cc.RigidBody).linearVelocity.y);
                 this.playAnimation();
             }
+            // player is within the range
             if(this.distanceFromNode(this.p1) < this.trackRange || 
                this.distanceFromNode(this.p2) < this.trackRange){
                 this.status = Status.CHASE;
@@ -140,15 +123,12 @@ export default class Rat extends cc.Component {
                 }else{
                     this.runTowards = this.p2;
                 }
-                this.onTransitionFinish();
+                this.updateRoute();
                 if (this.distanceFromTarget < this._minGraphEdgeLength) {
-                    cc.log("within same waypoint of player");
-                    this.nextWaypoint
                     this._moveAxis2D.x = this.towardsTarget.x;
                     this._moveAxis2D.y = this.towardsTarget.y;
                 } else {
                     if (this.currentWaypoint === this.nextWaypoint) {
-                        cc.log("reach next waypoint");
                         this._moveAxis2D = cc.Vec2.ZERO;
                     } else {
                         this._moveAxis2D = this.towardsNextWaypoint;

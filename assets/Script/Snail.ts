@@ -11,7 +11,8 @@ const { ccclass, property } = cc._decorator;
 export default class Snail extends cc.Component {
   // LIFE-CYCLE CALLBACKS:
   private counter: number = 0;
-  private phase: number = 0;
+  // private phase: number = 0;
+  // private sqzLock: boolean = false;
   private leftDown: boolean = false;
   private rightDown: boolean = false;
   private upDown: boolean = false;
@@ -21,7 +22,6 @@ export default class Snail extends cc.Component {
   private rotationSpeed: number = 2;
   private moveDirection: number = 1;
   private rotateDirection: number = 0;
-  private sqzLock: boolean = false;
   private moveRotateInertia: number = 1.4;
   private moving: boolean = false;
   private sqzSpeed: Array<number> = [100, 120, 140, 170];
@@ -92,7 +92,7 @@ export default class Snail extends cc.Component {
     // cc.log(this.node.angle);
     if (Math.abs(this.targetRotation - this.node.angle) < 3) {
       this.node.angle = this.targetRotation;
-      cc.log("finish");
+      // cc.log("finish");
     }
   }
   release() {
