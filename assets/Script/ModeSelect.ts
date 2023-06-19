@@ -14,6 +14,7 @@ export default class NewClass extends cc.Component {
   onLoad() {
     cc.director.preloadScene("Local2p");
     cc.director.preloadScene("MapEditor");
+    cc.find("GameMgr").getComponent("GameMgr").playBGM1();
   }
   Local2p() {
     cc.find("TransitionNode").getComponent("SceneTransition").Loading();

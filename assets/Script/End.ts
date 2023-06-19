@@ -31,6 +31,8 @@ export default class End extends cc.Component {
     cc.find("Canvas/P2/P2Name").getComponent(cc.Label).string = cc
       .find("GameMgr")
       .getComponent("GameMgr").P2Name;
+
+    cc.find("GameMgr").getComponent("GameMgr").playBGM3();
   }
 
   start() {

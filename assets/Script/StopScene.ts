@@ -23,6 +23,7 @@ export default class StopScene extends cc.Component {
         cc.director.pause();
       })
       .start(); */
+    cc.find("GameMgr").getComponent("GameMgr").stopBGM();
     cc.tween(this.node)
       .to(1, { opacity: 105 }, { easing: "cubicInOut" })
       .call(() => {
@@ -41,7 +42,7 @@ export default class StopScene extends cc.Component {
         this.node.setPosition(cc.v3(-480, 320));
       })
       .start(); */
-
+    cc.find("GameMgr").getComponent("GameMgr").resumeBGM();
     cc.director.resume();
     cc.tween(this.node)
       .to(1, { opacity: 0 }, { easing: "cubicInOut" })

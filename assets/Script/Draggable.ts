@@ -56,7 +56,6 @@ export default class Draggable extends cc.Component {
     }
     if (this.isDragging == false) return;
     this.isDragging = false;
-
     // return to its original size
     this.node.width /= 1.5;
     this.node.height /= 1.5;

@@ -17,6 +17,8 @@ export default class MapEditor extends cc.Component {
   ObjectLibrary: cc.Node = null;
   @property(cc.ParticleSystem)
   creatingParticle: cc.ParticleSystem = null;
+  @property(cc.AudioClip)
+  creatingAudio: cc.AudioClip = null;
   private keyState = {
     esc: false,
   };
@@ -62,36 +64,66 @@ export default class MapEditor extends cc.Component {
       .getComponent("ObjectPool")
       .createObj1(this.node.position.add(cc.v3(490, 340, 0)));
     this.creatingParticle.resetSystem();
+    cc.audioEngine.play(
+      this.creatingAudio,
+      false,
+      cc.find("GameMgr").getComponent("GameMgr").getVolume()
+    );
   }
   placeobject2() {
     this.node
       .getComponent("ObjectPool")
       .createObj2(this.node.position.add(cc.v3(490, 340, 0)));
     this.creatingParticle.resetSystem();
+    cc.audioEngine.play(
+      this.creatingAudio,
+      false,
+      cc.find("GameMgr").getComponent("GameMgr").getVolume()
+    );
   }
   placeobject3() {
     this.node
       .getComponent("ObjectPool")
       .createObj3(this.node.position.add(cc.v3(490, 340, 0)));
     this.creatingParticle.resetSystem();
+    cc.audioEngine.play(
+      this.creatingAudio,
+      false,
+      cc.find("GameMgr").getComponent("GameMgr").getVolume()
+    );
   }
   placeobject4() {
     this.node
       .getComponent("ObjectPool")
       .createObj4(this.node.position.add(cc.v3(490, 340, 0)));
     this.creatingParticle.resetSystem();
+    cc.audioEngine.play(
+      this.creatingAudio,
+      false,
+      cc.find("GameMgr").getComponent("GameMgr").getVolume()
+    );
   }
   placeobject5() {
     this.node
       .getComponent("ObjectPool")
       .createObj5(this.node.position.add(cc.v3(490, 340, 0)));
     this.creatingParticle.resetSystem();
+    cc.audioEngine.play(
+      this.creatingAudio,
+      false,
+      cc.find("GameMgr").getComponent("GameMgr").getVolume()
+    );
   }
   placeobject6() {
     this.node
       .getComponent("ObjectPool")
       .createObj6(this.node.position.add(cc.v3(490, 340, 0)));
     this.creatingParticle.resetSystem();
+    cc.audioEngine.play(
+      this.creatingAudio,
+      false,
+      cc.find("GameMgr").getComponent("GameMgr").getVolume()
+    );
   }
 
   start() {}

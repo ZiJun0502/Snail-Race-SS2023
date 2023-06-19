@@ -21,9 +21,13 @@ export default class MidPoint extends cc.Component {
   start() {}
 
   update(dt) {
-    this.node.setPosition(
-      (this.p1.position.x + this.p2.position.x) / 2,
-      (this.p1.position.y + this.p2.position.y) / 2
-    );
+    if (this.p1 && this.p2)
+      this.node.setPosition(
+        cc.v3(
+          (this.p1.position.x + this.p2.position.x) / 2,
+          (this.p1.position.y + this.p2.position.y) / 2,
+          0
+        )
+      );
   }
 }
