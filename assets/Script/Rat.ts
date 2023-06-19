@@ -66,8 +66,6 @@ export default class Rat extends cc.Component {
             if(currentTime >= this._nextWaitTime){
                 this._nextWaitTime = this._moveDuration + Math.random() * this._waitRandomFactor + this._nextMoveTime;
                 this.getComponent(cc.RigidBody).linearVelocity = cc.Vec2.ZERO;
-            }else{
-                if(this.anim.getAnimationState)
             }
             if(currentTime >= this._nextMoveTime){
                 this._nextMoveTime += this._waitDuration + this._moveDuration;
