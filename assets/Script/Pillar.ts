@@ -22,7 +22,7 @@ export default class NewClass extends cc.Component {
     };
 
     start () {
-        let delayTime = Math.random() * 2;
+        let delayTime = Math.random() * 6;
         this.pillarMove(delayTime);
     }
 
@@ -40,8 +40,8 @@ export default class NewClass extends cc.Component {
 
         
         moveAction = cc.sequence(
-            cc.moveBy(5, direction.mul(100)).easing(cc.easeInOut(easeRate)),
-            cc.moveBy(5, direction.mul(-100)).easing(cc.easeInOut(easeRate))
+            cc.moveBy(3, direction.mul(100)).easing(cc.easeInOut(easeRate)),
+            cc.moveBy(3, direction.mul(-100)).easing(cc.easeInOut(easeRate))
         ).repeatForever();
         
 

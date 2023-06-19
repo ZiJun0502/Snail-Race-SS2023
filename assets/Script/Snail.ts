@@ -190,24 +190,25 @@ export default class Snail extends cc.Component {
       this.hitWallParticle.resetSystem();
   }
   onBeginContact(contact, selfCollider, otherCollider){
-      if(otherCollider.node.getComponent(cc.PhysicsCollider).tag === 1){
-          // cc.log("hit!");
-          this.moveLock = true;
-          const radian = (this.node.angle + 90) * Math.PI/180;
-          this.curSpeed *= 0.7;
-          let Vx = this.curSpeed * Math.cos(radian), 
-              Vy = this.curSpeed * Math.sin(radian);
-          this.moveDirection = -1;
-          this.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(-Vx, -Vy);
-          this.scheduleOnce(function(){
-              this.moveLock = false;
-              this.moveDirection = 1;
-          }, this.stunDuration);
-          this.resetParticle();
-          this.scheduleOnce(function(){
-              this.hitWallParticle.stopSystem();
-          }, 0.4);
-      }
+    if(otherCollider.node.name == "Fan") return;
+    if(otherCollider.node.getComponent(cc.PhysicsCollider).tag === 1){
+        // cc.log("hit!");
+        this.moveLock = true;
+        const radian = (this.node.angle + 90) * Math.PI/180;
+        this.curSpeed *= 0.7;
+        let Vx = this.curSpeed * Math.cos(radian), 
+            Vy = this.curSpeed * Math.sin(radian);
+        this.moveDirection = -1;
+        this.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(-Vx, -Vy);
+        this.scheduleOnce(function(){
+            this.moveLock = false;
+            this.moveDirection = 1;
+        }, this.stunDuration);
+        this.resetParticle();
+        this.scheduleOnce(function(){
+            this.hitWallParticle.stopSystem();
+        }, 0.4);
+    }
   }
   fire() {
       this.fireParticle.resetSystem();

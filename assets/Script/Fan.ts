@@ -63,7 +63,7 @@ export default class NewClass extends cc.Component {
         var nodeRotation = this.node.rotation;
         var nodeRotationRad = cc.misc.degreesToRadians(nodeRotation);
         var direction = cc.v2(-Math.sin(nodeRotationRad),-Math.cos(nodeRotationRad));
-
+        contact.disabled = true;
         setTimeout(() =>{
             otherCollider.node.getComponent("Snail").StartBlowing(direction);
         }, 500);
