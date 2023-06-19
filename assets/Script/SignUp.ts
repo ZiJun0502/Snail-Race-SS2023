@@ -40,11 +40,16 @@ export default class NewClass extends cc.Component {
     this.P2Name = cc.find("Canvas/background/P2Name").getComponent(cc.EditBox);
   }
   SignUp() {
+    if (this.P1Email.string === this.P2Email.string) {
+      alert("Can not sign up with the same accounts !!!");
+      return;
+    }
     if (
       this.P1Email.string != "" &&
       this.P1Password.string != "" &&
       this.P2Email.string != "" &&
-      this.P2Password.string != ""
+      this.P2Password.string != "" &&
+      this.P1Email.string != this.P2Email.string
     ) {
       // P1 sign up
       firebase
@@ -107,7 +112,13 @@ export default class NewClass extends cc.Component {
               setTimeout(() => {
                 cc.director.loadScene("ModeSelect");
               }, 500);
+            })
+            .catch((err) => {
+              alert("Player 2" + err.message);
             });
+        })
+        .catch((err) => {
+          alert("Player 1" + err.message);
         });
     }
   }
