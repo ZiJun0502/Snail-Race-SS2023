@@ -15,6 +15,10 @@ export default class Fire extends cc.Component {
   fireAudio: cc.AudioClip = null;
   // onLoad () {}
 
+  public ResumeAction(){
+
+  };
+
   start() {}
   onBeginContact(contact, self, other) {
     if (other.node.getComponent("Snail")) {

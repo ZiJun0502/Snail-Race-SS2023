@@ -23,6 +23,7 @@ export default class Draggable extends cc.Component {
   private onMouseDown(event) {
     if (event.getButton() === cc.Event.EventMouse.BUTTON_RIGHT) {
       this.rotating = true;
+      this.node.stopAllActions();
     } else if (event.getButton() === cc.Event.EventMouse.BUTTON_MIDDLE) {
       //this.node.destroy();
 
@@ -32,7 +33,7 @@ export default class Draggable extends cc.Component {
     } else {
       if (this.isDragging == true) return;
       this.isDragging = true;
-
+      this.node.stopAllActions();
       // make the node large
       this.node.width *= 1.5;
       this.node.height *= 1.5;
@@ -42,6 +43,7 @@ export default class Draggable extends cc.Component {
 
   private onMouseMove(event) {
     if (this.isDragging == false) return;
+    this.node.stopAllActions();
     let cur = event.getLocation();
 
     let newPos = this.node.position.add(cur.sub(this.prePos));
@@ -53,10 +55,15 @@ export default class Draggable extends cc.Component {
   private onMouseUp(event) {
     if (event.getButton() === cc.Event.EventMouse.BUTTON_RIGHT) {
       this.rotating = false;
+      if(this.node.getComponent(this.node.name)){
+        this.node.getComponent(this.node.name).ResumeAction();
+      }
     }
     if (this.isDragging == false) return;
     this.isDragging = false;
-
+    if(this.node.getComponent(this.node.name)){
+      this.node.getComponent(this.node.name).ResumeAction();
+    }
     // return to its original size
     this.node.width /= 1.5;
     this.node.height /= 1.5;
