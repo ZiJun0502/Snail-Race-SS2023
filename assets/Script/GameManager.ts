@@ -17,6 +17,7 @@ export default class GameManager extends cc.Component {
   private timeLabel = null;
   onLoad() {
     this.timeLabel = this.node.getChildByName("Timer").getComponent(cc.Label);
+    cc.find("GameMgr").getComponent("GameMgr").playBGM2();
   }
 
   start() {}
