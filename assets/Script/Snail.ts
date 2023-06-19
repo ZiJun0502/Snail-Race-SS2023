@@ -29,6 +29,8 @@ export default class Snail extends cc.Component {
   private moveLock: boolean = false;
   private stunDuration: number = 0.6;
   private anim: cc.Animation = null;
+  private blowing: boolean = false;
+  private blowingDirection: cc.Vec2 = cc.v2(0, -1);
 
   @property(cc.ParticleSystem)
   hitWallParticle: cc.ParticleSystem = null;
@@ -169,6 +171,9 @@ export default class Snail extends cc.Component {
                 this.rotate();
             }
         }
+        if(this.blowing === true){
+          this.node.getComponent(cc.RigidBody).linearVelocity = this.blowingDirection.mul(50);
+        }
     }
     isAnimationPlaying(animationName: string): boolean {
         if (this.anim) {
@@ -202,5 +207,17 @@ export default class Snail extends cc.Component {
     }
     fire() {
         this.fireParticle.resetSystem();
+    }
+    StartBlowing(blowingDirection: cc.Vec2) {
+      this.blowing = true;
+      this.blowingDirection = blowingDirection;
+      // this.scheduleOnce(() => {
+      //   this.blowing = false;
+      //   this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 0);
+      // }, 1000)
+    }
+    StopBlowing(){
+      this.blowing = false;
+      this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 0);
     }
 }
