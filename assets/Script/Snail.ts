@@ -132,7 +132,7 @@ export default class Snail extends cc.Component {
     }
 
     update (dt) {
-        cc.log(this.moveLock);
+        // cc.log(this.moveLock);
         //friction and change direction during the release
         if(this.getComponent(cc.RigidBody).linearVelocity.x || this.getComponent(cc.RigidBody).linearVelocity.y){
             const radian = (this.node.angle + 90) * Math.PI/180;
