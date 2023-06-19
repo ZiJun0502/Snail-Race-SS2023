@@ -4,7 +4,8 @@ import Waypoint from "./Navigation/Waypoint";
 const {ccclass, property} = cc._decorator;
 enum Status{
     WANDER,
-    CHASE
+    CHASE,
+    STUNNED
 }
 @ccclass
 export default class Rat extends cc.Component {
@@ -15,6 +16,7 @@ export default class Rat extends cc.Component {
     private _nextMoveTime = 0;
     private _wanderVelocity = 15;
     private _chaseVelocity = 30;
+    private _stunDuration = 1.2;
     private _moveAxis2D = cc.Vec2.ZERO;
     private trackRange: number = 200;
     private anim: cc.Animation = null;
@@ -23,6 +25,7 @@ export default class Rat extends cc.Component {
     private currentWaypoint: Waypoint = null;
     private nextWaypoint: Waypoint = null;
     private runTowards: cc.Node = null;
+    private friction = 100;
     @property(WaypointGraph)
     waypointGraph: WaypointGraph = null;
 
@@ -113,7 +116,7 @@ export default class Rat extends cc.Component {
                 this.currentWaypoint = this.closestWaypoint;
                 this.nextWaypoint = this.closestWaypoint;
             }
-        }else{
+        }else if(this.status === Status.CHASE){
             if(this.distanceFromNode(this.p1) > this.trackRange && 
                this.distanceFromNode(this.p2) > this.trackRange){
                 this.status = Status.WANDER;
@@ -135,6 +138,21 @@ export default class Rat extends cc.Component {
                     }
                 }
                 this.getComponent(cc.RigidBody).linearVelocity = this._moveAxis2D.mul(this._chaseVelocity);
+            }
+        }else{
+            let Vx = this.getComponent(cc.RigidBody).linearVelocity.x, 
+                Vy = this.getComponent(cc.RigidBody).linearVelocity.y;
+            let speed = Math.sqrt(Vx*Vx + Vy*Vy);
+            let newSpeed = speed - this.friction * dt;
+            cc.log("speed: ",speed, "\n", "newSpeed:", newSpeed);
+            if(newSpeed < 1){
+                newSpeed = 0;
+            }
+            // cc.log(Vx, Vy);
+            if(speed === 0){
+                this.getComponent(cc.RigidBody).linearVelocity = cc.Vec2.ZERO;
+            }else{
+                this.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(Vx, Vy).mul(newSpeed/speed);
             }
         }
         this.playAnimation();
@@ -161,7 +179,17 @@ export default class Rat extends cc.Component {
             }
             this.node.scaleX = 1;
         }
-
+    }
+    onBeginContact(contact, selfCollider, otherCollider){
+        if(otherCollider.node.name === "Snail1" || otherCollider.node.name === "Snail2"){
+            this.status = Status.STUNNED;
+            let Vx = this.getComponent(cc.RigidBody).linearVelocity.x, 
+                Vy = this.getComponent(cc.RigidBody).linearVelocity.y;
+            this.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(-Vx*3, -Vy*3);
+            this.scheduleOnce(function(){
+                this.status = Status.CHASE;
+            }, this._stunDuration);
+        }
     }
 }
 function randomPointOnUnitCircle() {

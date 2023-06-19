@@ -574,7 +574,7 @@
       "__id__": 8
     },
     "_enabled": true,
-    "tag": 0,
+    "tag": 1,
     "_density": 1,
     "_sensor": false,
     "_friction": 0.2,
@@ -603,7 +603,6 @@
     "waypointGraph": {
       "__id__": 14
     },
-    "runTowards": null,
     "p1": {
       "__id__": 318
     },
@@ -15351,7 +15350,7 @@
       "__id__": 8
     },
     "asset": {
-      "__uuid__": "1fc1e12a-2d10-4a68-b56f-8a9e2587cae7"
+      "__uuid__": "4dad8def-07c7-4ee9-a05a-b75976d292d5"
     },
     "fileId": "",
     "sync": false

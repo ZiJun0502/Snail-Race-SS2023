@@ -51,6 +51,8 @@ export default class Snail extends cc.Component {
     this.anim = this.getComponent(cc.Animation);
   }
   rotate() {
+    if(this.moveLock) 
+      return;
     const temp = this.targetRotation - 360;
     let clock, anti;
     if (this.targetRotation > this.node.angle) {
@@ -96,6 +98,8 @@ export default class Snail extends cc.Component {
     }
   }
   release() {
+    if(this.moveLock) 
+      return;
     if (this.sqzState > 0) {
       this.curSpeed = this.sqzSpeed[this.sqzState - 1];
       // const speed = this.sqzSpeed[this.sqzState-1];
@@ -133,91 +137,91 @@ export default class Snail extends cc.Component {
     }
   }
 
-    update (dt) {
-        // cc.log(this.moveLock);
-        //friction and change direction during the release
-        if(this.getComponent(cc.RigidBody).linearVelocity.x || this.getComponent(cc.RigidBody).linearVelocity.y){
-            const radian = (this.node.angle + 90) * Math.PI/180;
-            this.moving = true;
-            let Vx = this.curSpeed * Math.cos(radian) * this.moveDirection, 
-                Vy = this.curSpeed * Math.sin(radian) * this.moveDirection;
-            this.curSpeed -= this.friction * dt;
-            if(this.curSpeed < 1){
-                this.curSpeed = 0;
-            }
-            // cc.log(Vx, Vy);
-            this.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(Vx, Vy);
-        }else{
-            this.moving = false;
-        }
-        if(!this.moveLock){
-            //squeeze
-            if(this.sqzDown && !this.isAnimationPlaying('release')){
-                this.counter += dt;
-            }
-            if(this.counter > this.cycle){
-                if(this.sqzState == 4){
+  update (dt) {
+      // cc.log(this.moveLock);
+      //friction and change direction during the release
+      if(this.getComponent(cc.RigidBody).linearVelocity.x || this.getComponent(cc.RigidBody).linearVelocity.y){
+          const radian = (this.node.angle + 90) * Math.PI/180;
+          this.moving = true;
+          let Vx = this.curSpeed * Math.cos(radian) * this.moveDirection, 
+              Vy = this.curSpeed * Math.sin(radian) * this.moveDirection;
+          this.curSpeed -= this.friction * dt;
+          if(this.curSpeed < 1){
+              this.curSpeed = 0;
+          }
+          // cc.log(Vx, Vy);
+          this.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(Vx, Vy);
+      }else{
+          this.moving = false;
+      }
+      if(!this.moveLock){
+          //squeeze
+          if(this.sqzDown && !this.isAnimationPlaying('release')){
+              this.counter += dt;
+          }
+          if(this.counter > this.cycle){
+              if(this.sqzState == 4){
 
-                }else{
-                    this.counter = 0;
-                    this.sqzState += 1;
-                    this.getComponent(cc.Sprite).spriteFrame = this.sqz[this.sqzState];
-                }
-            }
-            //rotation
-            this.calTargetRotation();
-            // cc.log(this.targetRotation);
-            if(this.targetRotation != this.node.angle){
-                this.rotate();
-            }
-        }
-        if(this.blowing === true){
-          this.node.getComponent(cc.RigidBody).linearVelocity = this.blowingDirection.mul(50);
-        }
-    }
-    isAnimationPlaying(animationName: string): boolean {
-        if (this.anim) {
-            const animationState: cc.AnimationState | null = this.anim.getAnimationState(animationName);
-            return animationState && animationState.isPlaying;
-        }
-        return false;
-    }
-    resetParticle(){
-        this.hitWallParticle.resetSystem();
-    }
-    onBeginContact(contact, selfCollider, otherCollider){
-        if(otherCollider.node.name === "wall"){
-            cc.log("hit!");
-            this.moveLock = true;
-            const radian = (this.node.angle + 90) * Math.PI/180;
-            this.curSpeed *= 0.7;
-            let Vx = this.curSpeed * Math.cos(radian), 
-                Vy = this.curSpeed * Math.sin(radian);
-            this.moveDirection = -1;
-            this.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(-Vx, -Vy);
-            this.scheduleOnce(function(){
-                this.moveLock = false;
-                this.moveDirection = 1;
-            }, this.stunDuration);
-            this.resetParticle();
-            this.scheduleOnce(function(){
-                this.hitWallParticle.stopSystem();
-            }, 0.4);
-        }
-    }
-    fire() {
-        this.fireParticle.resetSystem();
-    }
-    StartBlowing(blowingDirection: cc.Vec2) {
-      this.blowing = true;
-      this.blowingDirection = blowingDirection;
-      // this.scheduleOnce(() => {
-      //   this.blowing = false;
-      //   this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 0);
-      // }, 1000)
-    }
-    StopBlowing(){
-      this.blowing = false;
-      this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 0);
-    }
+              }else{
+                  this.counter = 0;
+                  this.sqzState += 1;
+                  this.getComponent(cc.Sprite).spriteFrame = this.sqz[this.sqzState];
+              }
+          }
+          //rotation
+          this.calTargetRotation();
+          // cc.log(this.targetRotation);
+          if(this.targetRotation != this.node.angle){
+              this.rotate();
+          }
+      }
+      if(this.blowing === true){
+        this.node.getComponent(cc.RigidBody).linearVelocity = this.blowingDirection.mul(50);
+      }
+  }
+  isAnimationPlaying(animationName: string): boolean {
+      if (this.anim) {
+          const animationState: cc.AnimationState | null = this.anim.getAnimationState(animationName);
+          return animationState && animationState.isPlaying;
+      }
+      return false;
+  }
+  resetParticle(){
+      this.hitWallParticle.resetSystem();
+  }
+  onBeginContact(contact, selfCollider, otherCollider){
+      if(otherCollider.node.getComponent(cc.PhysicsCollider).tag === 1){
+          // cc.log("hit!");
+          this.moveLock = true;
+          const radian = (this.node.angle + 90) * Math.PI/180;
+          this.curSpeed *= 0.7;
+          let Vx = this.curSpeed * Math.cos(radian), 
+              Vy = this.curSpeed * Math.sin(radian);
+          this.moveDirection = -1;
+          this.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(-Vx, -Vy);
+          this.scheduleOnce(function(){
+              this.moveLock = false;
+              this.moveDirection = 1;
+          }, this.stunDuration);
+          this.resetParticle();
+          this.scheduleOnce(function(){
+              this.hitWallParticle.stopSystem();
+          }, 0.4);
+      }
+  }
+  fire() {
+      this.fireParticle.resetSystem();
+  }
+  StartBlowing(blowingDirection: cc.Vec2) {
+    this.blowing = true;
+    this.blowingDirection = blowingDirection;
+    // this.scheduleOnce(() => {
+    //   this.blowing = false;
+    //   this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 0);
+    // }, 1000)
+  }
+  StopBlowing(){
+    this.blowing = false;
+    this.node.getComponent(cc.RigidBody).linearVelocity = cc.v2(0, 0);
+  }
 }
