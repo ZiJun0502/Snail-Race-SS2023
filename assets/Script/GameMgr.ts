@@ -29,6 +29,7 @@ export default class GameMgr extends cc.Component {
   // some private data
   private SettingVolume = null;
   private currentBGM = null;
+
   onLoad() {
     // enable physic
     let physic = cc.director.getPhysicsManager();
@@ -36,7 +37,7 @@ export default class GameMgr extends cc.Component {
     physic.gravity = cc.v2(0, 0);
 
     // debug
-    cc.director.getPhysicsManager().debugDrawFlags = 1;
+    //cc.director.getPhysicsManager().debugDrawFlags = 1;
     // add this node to persist node
     cc.game.addPersistRootNode(this.node);
     this.SettingVolume = this.node
