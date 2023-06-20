@@ -67,23 +67,23 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -117,
-        383,
-        0,
+        456.558,
+        241.226,
         0,
         0,
         0,
         1,
+        6.123233995736766e-17,
         0.5,
         0.5,
-        1
+        0.5
       ]
     },
     "_eulerAngles": {
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 0
+      "z": 180
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -328,6 +328,9 @@
     },
     "_enabled": true,
     "init_pos": null,
+    "fanAudio": {
+      "__uuid__": "87a9bd86-bc3f-445a-9a12-ea5debc1a9ea"
+    },
     "_id": ""
   },
   {

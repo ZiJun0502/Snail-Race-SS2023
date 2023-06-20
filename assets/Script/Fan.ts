@@ -18,6 +18,9 @@ export default class NewClass extends cc.Component {
 
     private animState: cc.AnimationState = null;
 
+    @property(cc.AudioClip)
+    fanAudio: cc.AudioClip = null;
+
     public ResumeAction(){
         this.blowMove(1);
     };
@@ -66,6 +69,11 @@ export default class NewClass extends cc.Component {
         contact.disabled = true;
         setTimeout(() =>{
             otherCollider.node.getComponent("Snail").StartBlowing(direction);
+            cc.audioEngine.play(
+                this.fanAudio,
+                false,
+                cc.find("GameMgr").getComponent("GameMgr").getVolume()
+            );
         }, 500);
         console.log("onbegin");
     }

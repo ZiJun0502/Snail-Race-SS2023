@@ -44,6 +44,12 @@ export default class Snail extends cc.Component {
   sqz: cc.SpriteFrame[] = [];
   private sqzState: number = 0;
   private cycle: number = 0.15;
+  @property(cc.AudioClip)
+  forwardAudio: cc.AudioClip = null;
+  @property(cc.AudioClip)
+  hitAudio: cc.AudioClip = null;
+  @property(cc.AudioClip)
+  wallAudio: cc.AudioClip = null;
 
   onLoad() {
     // cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
@@ -101,6 +107,7 @@ export default class Snail extends cc.Component {
     if(this.moveLock) 
       return;
     if (this.sqzState > 0) {
+      
       this.curSpeed = this.sqzSpeed[this.sqzState - 1];
       // const speed = this.sqzSpeed[this.sqzState-1];
       this.anim.play("release");
@@ -109,6 +116,11 @@ export default class Snail extends cc.Component {
       this.node.getComponent(cc.RigidBody).linearVelocity = new cc.Vec2(
         this.curSpeed * Math.cos(radian),
         this.curSpeed * Math.sin(radian)
+      );
+      cc.audioEngine.play(
+        this.forwardAudio,
+        false,
+        cc.find("GameMgr").getComponent("GameMgr").getVolume()
       );
       // cc.log(this.getComponent(cc.RigidBody).linearVelocity.x, this.getComponent(cc.RigidBody).linearVelocity.y);
     }
@@ -191,8 +203,16 @@ export default class Snail extends cc.Component {
   }
   onBeginContact(contact, selfCollider, otherCollider){
     if(otherCollider.node.name == "Fan") return;
+    if(otherCollider.node.name == "wall" && otherCollider.node.getComponent(cc.PhysicsCollider).tag === 0){
+      cc.audioEngine.play(
+        this.wallAudio,
+        false,
+        cc.find("GameMgr").getComponent("GameMgr").getVolume()
+      );
+    }
     if(otherCollider.node.getComponent(cc.PhysicsCollider).tag === 1){
         // cc.log("hit!");
+        
         this.moveLock = true;
         const radian = (this.node.angle + 90) * Math.PI/180;
         this.curSpeed *= 0.7;
@@ -208,6 +228,13 @@ export default class Snail extends cc.Component {
         this.scheduleOnce(function(){
             this.hitWallParticle.stopSystem();
         }, 0.4);
+        if(otherCollider.node.name != "rat"){
+          cc.audioEngine.play(
+            this.hitAudio,
+            false,
+            cc.find("GameMgr").getComponent("GameMgr").getVolume()
+          );
+        }
     }
   }
   fire() {

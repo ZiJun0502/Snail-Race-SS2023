@@ -20,6 +20,9 @@ export default class NewClass extends cc.Component {
 
     private animateState = null;
 
+    @property(cc.AudioClip)
+    gateAudio: cc.AudioClip = null;
+
     public ResumeAction(){
 
     };
@@ -42,6 +45,11 @@ export default class NewClass extends cc.Component {
     
             if (this.timer >= 3) {
                 this.animateState = this.anim.play('gateopen');
+                // cc.audioEngine.play(
+                //     this.gateAudio,
+                //     false,
+                //     cc.find("GameMgr").getComponent("GameMgr").getVolume()
+                // );
                 if(this.timer >= 3.24)
                 {
                     this.isopen = true;
@@ -56,6 +64,11 @@ export default class NewClass extends cc.Component {
 
             if (this.timer >= 2.76) {
                 this.animateState = this.anim.play('gateclose');
+                cc.audioEngine.play(
+                    this.gateAudio,
+                    false,
+                    cc.find("GameMgr").getComponent("GameMgr").getVolume()
+                );
                 this.isopen = false;
                 this.timer = 0;
             }

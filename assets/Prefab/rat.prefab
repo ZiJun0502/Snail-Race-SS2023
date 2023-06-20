@@ -202,6 +202,12 @@
     "waypointGraph": null,
     "p1": null,
     "p2": null,
+    "ratAudio1": {
+      "__uuid__": "bf555caf-4f1f-4015-89ee-c28a74fce575"
+    },
+    "ratAudio2": {
+      "__uuid__": "bea5db50-4f6e-4b6e-b46c-3fc86129af3c"
+    },
     "_id": ""
   },
   {
