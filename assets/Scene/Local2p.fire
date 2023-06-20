@@ -18032,7 +18032,9 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 1,
     "_custom": true,
-    "_file": null,
+    "_file": {
+      "__uuid__": "c33ba493-6aa5-4ef4-87b8-0c00bb800ce0"
+    },
     "_spriteFrame": null,
     "_texture": null,
     "_stopped": true,
@@ -18370,7 +18372,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -76.90143,
+        9.768,
         0,
         0,
         0,
@@ -18574,10 +18576,12 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 1,
     "_custom": true,
-    "_file": null,
+    "_file": {
+      "__uuid__": "c33ba493-6aa5-4ef4-87b8-0c00bb800ce0"
+    },
     "_spriteFrame": null,
     "_texture": null,
-    "_stopped": true,
+    "_stopped": false,
     "playOnLoad": false,
     "autoRemoveOnFinish": false,
     "totalParticles": 300,
