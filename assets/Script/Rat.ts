@@ -26,6 +26,7 @@ export default class Rat extends cc.Component {
     private nextWaypoint: Waypoint = null;
     private runTowards: cc.Node = null;
     private friction = 100;
+    private audioChoice: boolean = false;
     @property(WaypointGraph)
     waypointGraph: WaypointGraph = null;
 
@@ -33,6 +34,10 @@ export default class Rat extends cc.Component {
     p1: cc.Node = null;
     @property(cc.Node)
     p2: cc.Node = null;
+    @property(cc.AudioClip)
+    ratAudio1: cc.AudioClip = null;
+    @property(cc.AudioClip)
+    ratAudio2: cc.AudioClip = null;
     onLoad () {
         this.anim = this.getComponent(cc.Animation);
     }
@@ -182,6 +187,7 @@ export default class Rat extends cc.Component {
     }
     onBeginContact(contact, selfCollider, otherCollider){
         if(otherCollider.node.name === "Snail1" || otherCollider.node.name === "Snail2"){
+            
             this.status = Status.STUNNED;
             let Vx = this.getComponent(cc.RigidBody).linearVelocity.x, 
                 Vy = this.getComponent(cc.RigidBody).linearVelocity.y;
@@ -189,6 +195,22 @@ export default class Rat extends cc.Component {
             this.scheduleOnce(function(){
                 this.status = Status.CHASE;
             }, this._stunDuration);
+            if(!this.audioChoice){
+                cc.audioEngine.play(
+                    this.ratAudio1,
+                    false,
+                    cc.find("GameMgr").getComponent("GameMgr").getVolume()
+                );
+                this.audioChoice = true;
+            }
+            else{
+                cc.audioEngine.play(
+                    this.ratAudio2,
+                    false,
+                    cc.find("GameMgr").getComponent("GameMgr").getVolume()
+                );
+                this.audioChoice = false;
+            }
         }
     }
 }

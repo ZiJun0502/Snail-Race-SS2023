@@ -28,6 +28,7 @@ export default class GameMgr extends cc.Component {
 
   // some private data
   private SettingVolume = null;
+  private currentBGM = null;
   onLoad() {
     // enable physic
     let physic = cc.director.getPhysicsManager();
